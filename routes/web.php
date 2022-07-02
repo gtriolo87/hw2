@@ -59,3 +59,7 @@ Route::get('/administration/filter/{groupId}', 'App\Http\Controllers\AdminContro
 /* ROUTE per SERVIZI ESTERNI */
 Route::get('/service/ToDo', 'App\Http\Controllers\ExternalController@getToDo')->name("getToDo");
 Route::get('/service/videos/{keywords}', 'App\Http\Controllers\ExternalController@getVideos')->name("getVideos");
+
+/* ROUTE per TASK */
+Route::get('/task', 'App\Http\Controllers\TaskController@getAll')->name("getTasks");
+Route::get('/task/count/{jobId}', 'App\Http\Controllers\TaskController@countJobTasks')->name("countJobTasks");
