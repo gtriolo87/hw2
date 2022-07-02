@@ -232,9 +232,13 @@ class JobController extends BaseController
         $session_id = session('_hw1_user_id');
         $user = User::find($session_id);
         if ($user){
-            $canManageJob=(New UserController)->checkJobPermissions($session_id); 
+            $canManageJob=(New UserController)->checkJobPermissions($session_id);
+            $canManageTask=(New UserController)->checkManageTaskPermissions($session_id);
+            $canWorkTask=(New UserController)->checkWorkTaskPermissions($session_id);
         } else{
             $canManageJob=false;
+            $canManageTask=false;
+            $canWorkTask=false;
         }
         $jobError=is_null($jobData);
         return view("job")
@@ -242,6 +246,8 @@ class JobController extends BaseController
             ->with("jobData",$jobData)
             ->with("logged", !is_null($user))
             ->with("canManageJob",$canManageJob)
+            ->with("canManageTask",$canManageTask)
+            ->with("canWorkTask",$canWorkTask)
             ->with("jobError",$jobError);
     }
 
@@ -255,6 +261,8 @@ class JobController extends BaseController
                     ->with("jobData",null)
                     ->with("logged", true)
                     ->with("canManageJob",true)
+                    ->with("canManageTask",false)
+                    ->with("canWorkTask",false)
                     ->with("jobError",false);
             }
         }
